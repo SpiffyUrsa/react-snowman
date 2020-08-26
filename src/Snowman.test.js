@@ -37,3 +37,12 @@ it("Will no longer show the letter buttons after six wrong guesses.", function()
   expect(container).toMatchSnapshot();
 });
 
+// it("Resets the game", function() {
+//   const {container, debug} = render(<Snowman />)
+
+//   const bBtn = screen.getByText("b");
+//   fireEvent.click(bBtn);
+
+//   const wrongGuesses = container.querySelector("p")
+
+// });

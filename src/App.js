@@ -1,11 +1,13 @@
 import React from "react";
 import "./App.css";
 import Snowman from "./Snowman";
+import {ENGLISH_WORDS} from './words.js'
+
 
 function App() {
   return (
     <div className="App">
-      <Snowman />
+      <Snowman words = {ENGLISH_WORDS} />
     </div>
   );
 }

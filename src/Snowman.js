@@ -8,6 +8,7 @@ import img3 from "./3.png";
 import img4 from "./4.png";
 import img5 from "./5.png";
 import img6 from "./6.png";
+import {randomWord, ENGLISH_WORDS} from './words.js'
 
 
 /** Snowman game: plays hangman-style game with a melting snowman.
@@ -30,7 +31,7 @@ function Snowman(props) {
 
   const [nWrong, setNWrong] = useState(0);
   const [guessed, setGuessed] = useState(new Set());
-  const [answer, setAnswer] = useState((props.words)[0]);
+  const [answer, setAnswer] = useState(randomWord(words));
 
   /** guessedWord: show current-state of word:
    if guessed letters are {a,p,e}, show "app_e" for "apple"
@@ -72,13 +73,24 @@ function Snowman(props) {
     ));
   }
 
+  /** This should pick a new random word and reset the guessed list 
+   * and number of wrong guesses. */
+
+  function handleRestart(){
+    setNWrong(0)
+    setGuessed(new Set())
+    setAnswer(randomWord(words))
+  }
+  
+  const playArea = nWrong >= maxWrong ? "You lose" : generateButtons()
   /** render: render game */
   return (
       <div className="Snowman">
         <img src={(images)[nWrong]} alt={nWrong} />
-        <p>Number wrong: {nWrong}</p>
+        <p className="Snowman-wrong-guess-no">Number wrong: {nWrong}</p>
         <p className="Snowman-word">{guessedWord()}</p>
-        <p className="Snowman-play-area">{nWrong >= maxWrong ? "You lose" : generateButtons()}</p>
+        <p className="Snowman-play-area">{playArea}</p>
+        <button className="Snowman-restart-btn" onClick={handleRestart}>Restart Game</button>
       </div>
   );
 }

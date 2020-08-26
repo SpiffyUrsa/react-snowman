@@ -26,6 +26,8 @@ import img6 from "./6.png";
 function Snowman(props) {
   /** by default, allow 6 guesses and use provided gallows images. */
 
+  const { maxWrong, images, words } = props;
+
   const [nWrong, setNWrong] = useState(0);
   const [guessed, setGuessed] = useState(new Set());
   const [answer, setAnswer] = useState((props.words)[0]);
@@ -63,6 +65,7 @@ function Snowman(props) {
             value={ltr}
             onClick={handleGuess}
             disabled={guessed.has(ltr)}
+            className="Snowman-button"
         >
           {ltr}
         </button>
@@ -72,12 +75,15 @@ function Snowman(props) {
   /** render: render game */
   return (
       <div className="Snowman">
-        <img src={(props.images)[nWrong]} alt={nWrong} />
+        <img src={(images)[nWrong]} alt={nWrong} />
+        <p>Number wrong: {nWrong}</p>
         <p className="Snowman-word">{guessedWord()}</p>
-        <p>{generateButtons()}</p>
+        <p className="Snowman-play-area">{nWrong >= maxWrong ? "You lose" : generateButtons()}</p>
       </div>
   );
 }
+
+// if the nWrong is >= 6 we will show the string "You lose"
 
 Snowman.defaultProps = {
   maxWrong: 6,
